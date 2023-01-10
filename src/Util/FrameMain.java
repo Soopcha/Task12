@@ -15,6 +15,7 @@ import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 import static Classes.MainLogic.*;
 
@@ -68,7 +69,8 @@ public class FrameMain extends JFrame {
     public FrameMain() throws IOException {
         runTest();
 
-
+        ImageIcon img = new ImageIcon("1.png"); //СТАВЛЮ КАРТИНКУ В ПРОГУ
+        this.setIconImage(img.getImage());
         this.setTitle("Основная программа");
         this.setContentPane(panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,8 +115,18 @@ public class FrameMain extends JFrame {
                 try {
                     if (finalFileChooserSave.showSaveDialog(panelMain) == JFileChooser.APPROVE_OPTION) {
                         String str = textArea2.getText(); //получили текст с поля
-                        int dlinaPosledovatelnosty= Integer.parseInt(str);
-                        String result = MainLogic.getAnswer(dlinaPosledovatelnosty);
+                        int dlinaPosledovatelnosty;
+
+                        Scanner scanner = new Scanner(str);  //проверка на дурачка
+                        String result;
+                        if (scanner.hasNextInt()) {
+                            dlinaPosledovatelnosty = scanner.nextInt();
+                            result = MainLogic.getAnswer(dlinaPosledovatelnosty);
+                        } else {
+                            result ="Ошибка, вы ввели не число ";
+                            scanner.next();
+                        }
+
                         textArea3.setText(result); //выводим в текстовое поле textArea3 наш ответ
                         textField1.setText("Ответ:");
                         String path = finalFileChooserSave.getSelectedFile().getPath(); //тут и далее записываем в файл ответ наш

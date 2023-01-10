@@ -40,6 +40,8 @@ public class MainLogic {
             }
             */
 
+
+/*
     public static void main(String[] args) {
         List<String> list = new ArrayList<>();
         list = listOfAllInterrogativeSentences("В лингвистике термин «текст» используется в широком значении, включая и образцы устной речи. Восприятие текста изучается в рамках лингвистики текста и психолингвистики. Так, например, И. Р. Гальперин определяет текст следующим образом: «Это письменное сообщение, объективированное в виде письменного документа, состоящее из ряда высказываний, объединённых разными типами лексической, грамматической и");
@@ -47,6 +49,7 @@ public class MainLogic {
             System.out.println(s);
         }
     }
+    */
 
     public static List<String> listOfAllInterrogativeSentences(String str) { //возвращяет лист вопросов
         List<String> list = new ArrayList<>();
@@ -76,10 +79,33 @@ public class MainLogic {
         System.out.println();
     }
 
-    public static String getAnswer(int dlinaPosledovatelnosty) {        
-        String finishStr = null;
+    public static String strFinish = "";
 
-        return finishStr;
+    public static String getAnswer(int dlinaPosled) {
+        if (dlinaPosled % 2 == 0 && dlinaPosled >= 2) {
+            strFinish = "";
+            char[] charBox = new char[dlinaPosled];
+            printSkobki(charBox, 0, dlinaPosled / 2, 0, 0);
+            return strFinish;
+        } else {
+            return "Ваше число нечётное или меньше 2";
+        }
+    }
+
+    static void printSkobki(char[] str, int pos, int n, int open, int close) {
+        if (close == n) {
+            for (char c : str) strFinish += c;
+            strFinish += " ";
+        } else {
+            if (open > close) {
+                str[pos] = ')';
+                printSkobki(str, pos + 1, n, open, close + 1);
+            }
+            if (open < n) {
+                str[pos] = '(';
+                printSkobki(str, pos + 1, n, open + 1, close);
+            }
+        }
     }
 
     static void printParenthesis(char[] str, int pos, int n, int open, int close) {
