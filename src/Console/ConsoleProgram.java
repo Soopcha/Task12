@@ -58,5 +58,7 @@ public class ConsoleProgram {
         String[] argsCmd = readConsoleParameters();
         //задаём нетестовый массив
         runSolution(argsCmd,0);
+
+        // вводить   d:input.txt d:output.txt
     }
 }
